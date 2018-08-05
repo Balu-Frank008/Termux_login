@@ -1,0 +1,226 @@
+#!/data/data/com.termux/files/usr/bin/bash
+#Coded by Ivam3 on june 27 2018
+#
+source $PREFIX/libexec/colors
+
+# Variable
+	#COLORS
+		Cinderella=$(base64 -d $PREFIX/libexec/termux/.Ivam3)
+		Seque=$(base64 -d $PREFIX/libexec/termux/.Quiz)
+		Secan=$(base64 -d $PREFIX/libexec/termux/.Cinderella)
+
+#TRAPPING Ctrl+C
+		trap ctrl_c 2
+
+function ctrl_c() {
+	printf "	$red O-ops!!$reset \n"
+	}
+
+function change_ak {
+	echo $(clear)
+	source $PREFIX/libexec/banner/thanks
+	printf "$cyan"
+	echo
+	while read -n 1 -p "Forgot your access key ?
+		1) Get one new Access Key.
+		2) Change your Security question.
+		3) Change your Security answer.
+		0) Exit
+		
+		>>  " Chak && [ -z $Chak ]; do
+		printf "$red O-ops!!$cyan \n"
+	done
+		sleep 1
+		echo
+		case_Chak
+        }
+
+function case_Chak {
+	case $Chak in
+		1)
+			printf "$reset"
+			echo
+			while read -s -p "Security question :
+			$Seque
+				>>  " Quiz && [ -z $Quiz ]; do
+				printf "$red O-ops!!$reset \n"
+			done
+
+		if [ $Quiz = $Secan ]; then
+				printf "$reset"
+				echo $(clear)
+				source $PREFIX/libexec/banner/thanks
+			while read -s -n 4 -p "New access key (max 4 dig) >>  " Newak1 && [ -z $Newak1 ]; do
+                                printf "$red O-ops!!$reset \n"
+                        done
+                		printf "$reset"
+				echo
+                while read -s -n 4 -p "Type it once again to confirm >>  " Newak2 && [ -z $Newak2 ]; do
+				printf "$red O-ops!!$reset \n"
+			done
+                        
+			if [ $Newak1 = $Newak2 ]; then
+                                Newak=$Newak1
+				echo
+                                set_ak
+                        else
+                                echo $(clear)
+				source $PREFIX/libexec/banner/thanks
+				echo
+				printf "$red O-ops!!  IT DOESN'T MATCH Try again$reset \n"
+                                sleep 5
+				echo
+                                case_Chak
+                        fi
+		else
+			echo $(clear)
+			source $PREFIX/libexec/banner/thanks
+			echo
+			printf "$red O-ops!!  IT DOESN'T MATCH Try again$reset \n"
+			sleep 5
+                        change_ak
+		fi
+                        ;;
+		2)
+			printf "$green"
+			echo
+			while read -s -n 4 -p "Confirm your Access Key >>  " Ivam3 && [ -z $Ivam3 ];do
+				printf "        $red Access denied$green \n"
+				sleep 1
+			done
+			
+			if [ $Ivam3 = $Cinderella ]; then
+				printf "$reset"
+				echo "
+				"
+				while read -p "Write your New security question (Max 8 words) >>  " NewQ && [ -z $NewQ ]; do
+					printf "$red O-ops!!$reset"
+				done
+				echo $(clear)
+				source $PREFIX/libexec/banner/thanks
+				set_quiz
+
+			else
+				printf "        $red Access denied \n"
+				sleep 1
+				echo $(clear)
+				change_ak
+				fi
+			;;
+		3)
+			printf "$green"
+			echo
+			while read -s -n 4 -p "Confirm your Access Key >>  " Ivam3 && [ -z $Ivam3 ];do
+				printf "        $red Access denied$green \n"
+				sleep 1
+			done
+                        if [ $Ivam3 = $Cinderella ]; then
+				printf "$reset"
+                                echo "
+				"
+                while read -s -p "Write your New security Answer (Max 1 words) >>  " NewA && [ -z $NewA ]; do
+					printf "$red O-ops!!$reset"
+                                done
+                                echo $(clear)
+				source $PREFIX/libexec/banner/thanks
+				set_answ
+                        else
+                                printf "        $red Access denied \n"
+                                sleep 1
+                                echo $(clear)
+                                change_ak
+                                fi
+			;;
+		0)
+                        source $PREFIX/var/log/login-termux
+                        ;;
+        esac
+}
+
+function set_ak {
+	printf "$Newak" > $PREFIX/libexec/termux/.tmp-ak
+	chmod +w $PREFIX/libexec/termux/.Ivam3
+	base64 $PREFIX/libexec/termux/.tmp-ak > $PREFIX/libexec/termux/.Ivam3
+	chmod -w $PREFIX/libexec/termux/.Ivam3
+	rm $PREFIX/libexec/termux/.tmp-ak
+	check-Ak
+}
+
+function set_quiz {
+	printf "$NewQ" > $PREFIX/libexec/termux/.tmp-quiz
+	chmod +w $PREFIX/libexec/termux/.Quiz
+	base64 $PREFIX/libexec/termux/.tmp-quiz > $PREFIX/libexec/termux/.Quiz
+        chmod -w $PREFIX/libexec/termux/.Quiz
+	rm $PREFIX/libexec/termux/.tmp-quiz
+	echo
+	printf "$green Your Security Question was changed$reset \n"
+	sleep 3
+	source $PREFIX/var/log/login-termux
+}
+function set_answ {
+	printf "$NewA" > $PREFIX/libexec/termux/.tmp-answ
+	chmod +w $PREFIX/libexec/termux/.Cinderella
+	base64 $PREFIX/libexec/termux/.tmp-answ > $PREFIX/libexec/termux/.Cinderella
+	chmod -w $PREFIX/libexec/termux/.Cinderella
+	rm $PREFIX/libexec/termux/.tmp-answ
+	echo
+	printf "$green Your Security Answer was changed$reset \n"
+	sleep 3
+	source $PREFIX/var/log/login-termux
+}
+
+function check-Ak {
+	echo
+	if [ $Newak = $Cinderella ]; then
+		echo
+		printf "$green Your Access Key was changed $reset \n"
+		sleep 5
+		source $PREFIX/var/log/login-termux
+	else
+		printf "$red O-ops!!   Something was wrong"
+		source $PREFIX/var/log/login-termux
+	fi
+}
+
+# LOGIN
+for opt in 1 2 3; do
+        let try=opt++
+	source $PREFIX/libexec/banner/login-banner
+        printf "$green"
+        while read -s -n 4 -p "		 	   >> ACCESS KEY <<
+		           " Ivam3 && [ -z $Ivam3 ];do
+                printf " $red Access denied$green \n"
+        done
+	
+	if [ $Ivam3 = $Cinderella ]; then
+                source $PREFIX/libexec/banner/wall-banner
+		break
+        else
+		printf "$red Access denied 
+			      (op $try - 3) \n"
+		sleep 1
+		echo
+        fi
+done
+	if [ $try = 3 ]; then
+		printf "$red 			O-ops!! Too many tries$reset"
+		sleep 1
+		echo $(clear)
+		source $PREFIX/libexec/banner/thanks
+		printf "$yellow [!] Let's try with the security question$reset"
+		echo "
+		"
+		while read -s -p "     $Seque >>  " Quiz && [ -z $Quiz ]; do
+			printf "$red O-ops!!$reset \n"
+		done
+		if [ $Quiz = $Secan ]; then
+			printf "$reset"
+			echo $(clear)
+			source $PREFIX/libexec/banner/wall-banner
+		else
+			printf "$red Access denied$reset \n"
+			sleep 1
+			change_ak
+		fi
+	fi
+#				IbyC

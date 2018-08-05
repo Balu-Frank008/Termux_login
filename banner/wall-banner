@@ -1,0 +1,26 @@
+#!/data/data/com.termux/files/usr/bin/bash
+#Coded by Ivam3 on jun 27 2018
+
+source $PREFIX/libexec/colors
+
+#Banner
+	cmatrix -C blue -s -B
+echo $(clear)
+echo -e "$blue
+           . .IIIII             .II
+  IIIIIII. I  II  .    II..IIIIIIIIIIIIIIIIIIII
+ .  .IIIIII  II          III$cyan Ivam3$blue IIIIIIIIII.
+    .IIIII.III I      IIIIIIIII$cyan by$blue IIIIIIIII  I
+   .IIIIII$cyan Hackeando$blue II  .IIII$cyan Cinderella$blue III. III
+    IIIIIII$cyan  Desde$blue   ' IIIII I IIIIIIIIIIII III I
+    .II$cyan     Android$blue   IIIIIIIIIIII  IIIIIIIIII
+       I.           .IIIIIIIIIIII   I   II  I
+         .IIII        IIIIIIIIIIII     .       I
+          IIIII.          IIIIII           . I.
+         IIIIIIIII         IIIII             ..I  II .
+          IIIIIII          IIII..             IIQII
+            IIII           III. I            IIIEIII
+            III             I                I  IPI
+             II       $cyan [-]$magenta Join me on$cyan [-]$blue        D   .
+             I     $magenta t.me/Ivam3by_Cinderella$reset 
+	     \n"
