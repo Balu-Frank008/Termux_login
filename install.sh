@@ -1,4 +1,4 @@
-#!/system/bin/env bash
+#!/data/data/com.termux/files/usr/bin/bash
 #Coded by Ivam3 on 02 Agust 2018
 #
 #TRAPPING Ctrl+C
