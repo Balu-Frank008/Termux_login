@@ -1,11 +1,29 @@
-#!/system/bin/env bash
+#!/data/data/com.termux/files/usr/bin/bash
 #Coded by Ivam3 on 02 Agust 2018
 #
 #TRAPPING Ctrl+C
                 trap ctrl_c 2
 #
 function ctrl_c() {
-        printf "        $red O-ops!!$reset \n"
+        printf "        $red Do you wanna exit ?$reset \n"
+	echo "
+	"
+while read -p "$W [!]$R Yes,$W and restored all \n $C OR \n $W [!]$G NO,$W and continue \n >> " cxl && [ -z $cxl ]; do
+		printf "$R O-ops!!$W \n"
+                done
+		if [ $cxl = 'y' -o $cxl = 'Y' ] ; then
+                                rm $PREFIX/var/log/login-termux
+                                rm $PREFIX/libexec/colors
+                                rm -r $PREFIX/libexec/termux
+                                rm -r $PREFIX/libexec/banner
+                                cat $PREFIX/etc/bashito > $PREFIX/etc/bash.bashrc
+                                rm $PREFIX/etc/bashito
+                                source $PWD/banner/thanks
+                                echo $(exit)
+                        fi
+                        if [ $cxl = 'n' -o $cxl = 'N' ] ; then
+                                continue
+                        fi
         }
 #Define colors
                 R='\033[1;31m'
@@ -182,14 +200,14 @@ function Set_Banner {
 	banner
 printf "$C                      [!]$W Let's setting your banners"
 echo
-while read -p "Choose an option >> " banner && [ -z $banner ]; do
-        printf "$R O-ops!!$W \n"
+	printf "Choose an option"
         echo "
         "
         printf "$G [1]$W Setting login with default banners ?"
         printf "$G [2]$W Setting your own banners ?"
         echo
-        read -p "$G >> $W" banner
+        until read -n 1 -p "$G >> $W" banner && [ $banner -lt 3 ]; do
+		printf "$R O-ops!!$W \n"
 done
         case $banner in
                 1)
@@ -203,13 +221,18 @@ done
                         while read -p "Set login banner >> " LB && [ -z $LB ]; do
 				printf "$R O-ops!!$W \n"
 			done
+			if [ -e $LB ]; then
+				cat $LB > $PREFIX/libexec/banner/login-banner
+			else
+				printf "$R O-ops!!$W |$R Don't such file"                                                                     sleep 2
+                                        Set_Banner
+				fi
 			echo "
 			"
 			while read -p "Set termux banner >> " TB && [ -z $TB ]; do
                                 printf "$R O-ops!!$W \n"
 			done
-				if [ -e $LB ] && [ -e $TB ]; then
-					cat $LB > $PREFIX/libexec/banner/login-banner
+				if [ -e $TB ]; then
 					cat $TB > $PREFIX/libexec/banner/wall-banner
 				else
 					printf "$R O-ops!!$W |$R Don't such file"

@@ -14,6 +14,7 @@ source $PREFIX/libexec/colors
 
 function ctrl_c() {
 	printf "	$red O-ops!!$reset \n"
+	sleep 1
 	}
 
 function change_ak {
@@ -21,14 +22,14 @@ function change_ak {
 	source $PREFIX/libexec/banner/thanks
 	printf "$cyan"
 	echo
-	while read -n 1 -p "Forgot your access key ?
+	until read -n 1 -p "Forgot your access key ?
 		1) Get one new Access Key.
 		2) Change your Security question.
 		3) Change your Security answer.
 		0) Exit
 		
-		>>  " Chak && [ -z $Chak ]; do
-		printf "$red O-ops!!$cyan \n"
+		>>  " Chak && [ $Chak -lt 4 ]; do
+		printf "        $red O-ops!!$reset \n"
 	done
 		sleep 1
 		echo
@@ -204,7 +205,7 @@ for opt in 1 2 3; do
 done
 	if [ $try = 3 ]; then
 		printf "$red 			O-ops!! Too many tries$reset"
-		sleep 1
+		sleep 3
 		echo $(clear)
 		source $PREFIX/libexec/banner/thanks
 		printf "$yellow [!] Let's try with the security question$reset"
