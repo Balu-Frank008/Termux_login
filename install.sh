@@ -15,7 +15,7 @@ while read -p "$W [!]$R Yes,$W and restored all \n $C OR \n $W [!]$G NO,$W and c
                                 rm $PREFIX/var/log/login-termux
                                 rm $PREFIX/libexec/colors
                                 rm -r $PREFIX/libexec/termux
-                                rm -r $PREFIX/libexec/banner
+                                rm -rf $PREFIX/libexec/banner
                                 cat $PREFIX/etc/bashito > $PREFIX/etc/bash.bashrc
                                 rm $PREFIX/etc/bashito
                                 source $PWD/banner/thanks
@@ -229,11 +229,11 @@ done
 				fi
 			echo "
 			"
-			while read -p "Set termux banner >> " TB && [ -z $TB ]; do
+			while read -p "Set principal banner >> " PB && [ -z $PB ]; do
                                 printf "$R O-ops!!$W \n"
 			done
-				if [ -e $TB ]; then
-					cat $TB > $PREFIX/libexec/banner/wall-banner
+				if [ -e $PB ]; then
+					cat $PB > $PREFIX/libexec/banner/wall-banner
 				else
 					printf "$R O-ops!!$W |$R Don't such file"
 					sleep 2
@@ -242,8 +242,16 @@ done
                         ;;
         esac
 #
+#
+#			LET'S TO START
+#
+banner
+printf "$Y                      [IbyC]$C Upgrading packages && Installing files\n"
+echo
+apt update && apt upgrade -y
 #Setting files
 cat $PREFIX/etc/bash.bashrc > $PREFIX/etc/bashito
+sed -i "3a clear" $PREFIX/etc/bash.bashrc
 sed -i "4a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
 
 #
@@ -259,6 +267,9 @@ chmod 711 $PREFIX/var/log/login-termux
 chmod 711 $PREFIX/libexec/colors
 chmod 511 -R $PREFIX/libexec/termux
 chmod 511 -R $PREFIX/libexec/banner
+printf "$Y                      [!]$G DONE!!"
+sleep 2
+echo
 Set_Banner
 #
 				#@IbyC
