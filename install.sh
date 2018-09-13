@@ -1,6 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 #Coded by Ivam3 on 02 Agust 2018
 #
+set -euo pipefail
 #TRAPPING Ctrl+C
                 trap ctrl_c 2
 #
