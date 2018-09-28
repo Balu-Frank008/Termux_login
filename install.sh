@@ -263,6 +263,9 @@ else
 fi
 #
 #Installing Scripts
+if [ -d $HOME/Termux_login ]; then
+	rm -rf $HOME/Termux_login
+fi
 cd ~/;git clone https://github.com/ivam3/Termux_login.git;cd Termux_login
 cp $PWD/login-termux $PREFIX/var/log/
 cp $PWD/colors $PREFIX/libexec/
