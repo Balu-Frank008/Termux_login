@@ -22,7 +22,7 @@ while read -p "$W [!]$R Yes,$W and restored all \n $C OR \n $W [!]$G NO,$W and c
                                 source $PWD/banner/thanks
                                 echo $(exit)
                         fi
-                        if [ $cxl = 'n' -o $cxl = 'N' ] ; then
+                if [ $cxl = 'n' -o $cxl = 'N' ] ; then
                                 continue
                         fi
         }
@@ -87,7 +87,7 @@ function Define_Ak {
 		Ak=$Ak1
 		printf "$Ak" > $PREFIX/libexec/termux/tmp-Ak
 		chmod +w $PREFIX/libexec/termux/.Ivam3
-		base64 $PWD/tmp-Ak > $PREFIX/libexec/termux/.Ivam3
+		base64 $PREFIX/libexec/termux/tmp-Ak > $PREFIX/libexec/termux/.Ivam3
 		chmod -w $PREFIX/libexec/termux/.Ivam3
 		rm $PREFIX/libexec/termux/tmp-Ak
 		Set_Q
@@ -171,6 +171,7 @@ printf "				$G It take a while$W"
 sleep 3
 	if [ $Tak = $Ak ] && [ $TQ = $Quiz ] && [ $TA = $Anw ]; then
 		echo$(cd ../;rm -rf Termux_login;cd)
+		sleep 1
 		printf "$G C O N G R A T U L A T I O N S !!!$W"
 		sleep 3
 		echo$(bash)
@@ -207,7 +208,7 @@ echo
         printf "$G [1]$W Setting login with default banners ?"
         printf "$G [2]$W Setting your own banners ?"
         echo
-        until read -n 1 -p "$G >> $W" banner && [ $banner -lt 3 ]; do
+        until read -n 1 -p "$G >> $W" banner && [ $banner -lt 3 ] && [ -z $banner ]; do
 		printf "$R O-ops!!$W \n"
 done
         case $banner in
@@ -230,7 +231,7 @@ done
 				fi
 			echo "
 			"
-			while read -p "Set principal banner >> " PB && [ -z $PB ]; do
+			while read -p "Set a principal banner >> " PB && [ -z $PB ]; do
                                 printf "$R O-ops!!$W \n"
 			done
 				if [ -e $PB ]; then
@@ -252,11 +253,17 @@ echo
 apt update && apt upgrade -y
 #Setting files
 cat $PREFIX/etc/bash.bashrc > $PREFIX/etc/bashito
-sed -i "3a clear" $PREFIX/etc/bash.bashrc
-sed -i "4a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
-
+if [ -d $PREFIX/var/lib/postgresql ]; then
+	sed -i "3a pg_ctl -D $PREFIX/var/lib/postgresql" $PREFIX/etc/bash.bashrc
+	sed -i "4a clear" $PREFIX/etc/bash.bashrc
+	sed -i "5a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
+else
+	sed -i "3a clear" $PREFIX/etc/bash.bashrc
+	sed -i "4a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
+fi
 #
 #Installing Scripts
+cd ~/;git clone https://github.com/ivam3/Termux_login.git;cd Termux_login
 cp $PWD/login-termux $PREFIX/var/log/
 cp $PWD/colors $PREFIX/libexec/
 cp -r $PWD/termux $PREFIX/libexec/
