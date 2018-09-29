@@ -2,20 +2,32 @@
 #Coded by Ivam3 on 02 Agust 2018
 #
 set -euo pipefail
+#
+#Define colors
+                R='\033[1;31m'
+                G='\033[1;32m'
+                Y='\033[1;33m'
+                B='\033[1;34m'
+                M='\033[1;35m'
+                C='\033[1;36m'
+                W='\033[0m'
+		PWD=$(pwd)
+#
 #TRAPPING Ctrl+C
                 trap ctrl_c 2
 #
 function ctrl_c() {
-        printf "        $red Do you wanna exit ?$reset \n"
-	echo "
-	"
-while read -p "$W [!]$R Yes,$W and restored all \n $C OR \n $W [!]$G NO,$W and continue \n >> " cxl && [ -z $cxl ]; do
+        printf "        $R [W] Do you wanna exit ?$W \n"
+	printf "$Y [!]$W Type$R 'y'$W to restored all or type$G 'n'$W to continue\n"
+	while read -n 1 -p " >> " cxl && [ -z $cxl ]; do
 		printf "$R O-ops!!$W \n"
-                done
+	done
 		if [ $cxl = 'y' -o $cxl = 'Y' ] ; then
                                 rm $PREFIX/var/log/login-termux
                                 rm $PREFIX/libexec/colors
-                                rm -r $PREFIX/libexec/termux
+                                rm -r $PREFIX/libexec/termux/.Ivam3
+				rm -r $PREFIX/libexec/termux/.Cinderella
+				rm -r $PREFIX/libexec/termux/.Quiz
                                 rm -rf $PREFIX/libexec/banner
                                 cat $PREFIX/etc/bashito > $PREFIX/etc/bash.bashrc
                                 rm $PREFIX/etc/bashito
@@ -26,24 +38,9 @@ while read -p "$W [!]$R Yes,$W and restored all \n $C OR \n $W [!]$G NO,$W and c
                                 continue
                         fi
         }
-#Define colors
-                R='\033[1;31m'
-                G='\033[1;32m'
-                Y='\033[1;33m'
-                B='\033[1;34m'
-                M='\033[1;35m'
-                C='\033[1;36m'
-                W='\033[0m'
 #
-#Variable
-
-		PWD=$(pwd)
-		Tak=$(base64 -d $PREFIX/libexec/termux/.Ivam3)
-		TQ=$(base64 -d $PREFIX/libexec/termux/.Quiz)
-		TA=$(base64 -d $PREFIX/libexec/termux/.Cinderella)
-##
 function banner {
-	echo
+	echo $(clear)
 printf "$C"
         echo "         -{ IbyC Login Termux } "
         echo "   -{ SO > Android - Only for Termux } "
@@ -69,17 +66,16 @@ printf "$W"
 #
 function Set_Ak {
 	banner
-printf "$C			[!]$W Let's setting your access keys"
-echo
-while read -p "Type your Access Key >> " Ak1 && [ -z $Ak1 ]: do
-	printf "$R O-ops!!$W \n"
-                done
-echo "
-"
-while read -p "Confirm your Access Key >> " Ak2 && [ -z $Ak2 ]: do
-        printf "$R O-ops!!$W \n"
-                done
-		Define_Ak
+printf "$C [IbyC]$M Let's setting your access keys$C [IbyC]$W\n\n"
+printf "\n$M [!]$W"
+	while read -p "Type your Access Key >> " Ak1 && [ -z $Ak1 ]; do
+		printf "$R O-ops!!$W \n"
+	done
+printf "$M [!]$W"
+	while read -p "Confirm your Access Key >> " Ak2 && [ -z $Ak2 ]; do
+		printf "$R O-ops!!$W \n"
+	done
+	Define_Ak
 	}
 #
 function Define_Ak {
@@ -92,7 +88,7 @@ function Define_Ak {
 		rm $PREFIX/libexec/termux/tmp-Ak
 		Set_Q
 	else
-		printf "$R Your Access keys are diferents$W |$G please try again$W
+		printf "\n$R [W] Yours Access keys are diferents$W |$G please try again$W
 		\n"
 		sleep 2
 		Set_Ak
@@ -101,17 +97,16 @@ function Define_Ak {
 #
 function Set_Q {
         banner
-printf "$C                      [!]$W Let's setting your security question"
-echo
-while read -p "Type your security question >> " Quiz1 && [ -z $Quiz1 ]: do
-        printf "$R O-ops!!$W \n"
-                done
-echo "
-"
-while read -p "Confirm your security question >> " Quiz2 && [ -z $Quiz2 ]: do
-        printf "$R O-ops!!$W \n"
-                done
-		Define_Quiz
+printf "$C [IbyC]$M Let's setting your security question$C [IbyC]$W\n\n"
+printf "\n$M [!]$W Type your security question \n"
+	while read -p " >> " Quiz1 && [ -z $Quiz1 ]; do
+		printf "$R O-ops!!$W \n"
+	done
+printf "$M [!]$W Confirm your security question \n"
+	while read -p " >> " Quiz2 && [ -z $Quiz2 ]; do
+		printf "$R O-ops!!$W \n"
+	done
+	Define_Quiz
         }
 #
 function Define_Quiz {
@@ -124,7 +119,7 @@ function Define_Quiz {
                 rm $PREFIX/libexec/termux/tmp-Quiz
 		Set_Answer
         else
-		printf "$R Your security questions are diferents$W |$G please try again$W
+		printf "\n$R [W] Your security questions are diferents$W |$G please try again$W
                 \n"
                 sleep 2
                 Set_Q
@@ -133,17 +128,16 @@ function Define_Quiz {
 #
 function Set_Answer {
         banner
-printf "$C                      [!]$W Let's setting your security answer"
-echo
-while read -p "Type your security answer >> " Anw1 && [ -z $Anw1 ]: do
-        printf "$R O-ops!!$W \n"
-                done
-echo "
-"
-while read -p "Confirm your security answer >> " Anw2 && [ -z $Anw2 ]: do
-        printf "$R O-ops!!$W \n"
-                done
-		Define_Answer
+printf "$C [IbyC]$M Let's setting your security answer$C [IbyC]$W\n\n"
+printf "\n$M [!]$W Type your security answer \n"
+	while read -p " >> " Anw1 && [ -z $Anw1 ]; do
+		printf "$R O-ops!!$W \n"
+	done
+printf "$M [!]$W Confirm your security answer \n"
+	while read -p " >> " Anw2 && [ -z $Anw2 ]; do
+		printf "$R O-ops!!$W \n"
+	done
+	Define_Answer
         }
 #
 function Define_Answer {
@@ -154,72 +148,37 @@ function Define_Answer {
                 base64 $PREFIX/libexec/termux/tmp-Anw > $PREFIX/libexec/termux/.Cinderella
                 chmod -w $PREFIX/libexec/termux/.Cinderella
                 rm $PREFIX/libexec/termux/tmp-Anw
-		Testing_Settings
+		Chao_chao
         else
-		printf "$R Your security answers are diferents$W |$G please try again$W
+		printf "\n$R [W] Your security answers are diferents$W |$G please try again$W
                 \n"
                 sleep 2
                 Set_Answer
         fi
 }
 #
-function Testing_Settings {
-	banner
-printf "$C			 [!]$W Testing your logging settings . . ."
-sleep 1
-printf "				$G It take a while$W"
-sleep 3
-	if [ $Tak = $Ak ] && [ $TQ = $Quiz ] && [ $TA = $Anw ]; then
-		echo$(cd ../;rm -rf Termux_login;cd)
-		sleep 1
-		printf "$G C O N G R A T U L A T I O N S !!!$W"
-		sleep 3
-		echo$(bash)
-	else
-		printf "$R [w] O-ops !!$W |$R SOMETHING WAS WRONG$W"
-		sleep 2
-		echo "
-		"
-	while read -p "[!] Do you wanna try it once again ? (y/n) \n >> " yesorno && [ -z $yesorno ]; do
-			printf "$R O-ops!!$W \n"
-		done
-			if [ $yesorno = 'y' -o $yesorno = 'Y' ] ; then
-				Set_Ak
-			fi
-			if [ $yesorno = 'n' -o $yesorno = 'N' ] ; then
-				rm $PREFIX/var/log/login-termux
-				rm $PREFIX/libexec/colors
-				rm -r $PREFIX/libexec/termux
-				rm -r $PREFIX/libexec/banner
-				cat $PREFIX/etc/bashito > $PREFIX/etc/bash.bashrc
-				rm $PREFIX/etc/bashito
-				source $PWD/banner/thanks
-			fi
-		fi
-	}
-#
 function Set_Banner {
 	banner
-printf "$C                      [!]$W Let's setting your banners"
+printf "$C [IbyC]$M Let's setting your banners"
 echo
-	printf "Choose an option"
+	printf "         Choose an option"
         echo "
         "
-        printf "$G [1]$W Setting login with default banners ?"
-        printf "$G [2]$W Setting your own banners ?"
-        echo
-        until read -n 1 -p "$G >> $W" banner && [ $banner -lt 3 ] && [ -z $banner ]; do
+        printf "$M [1]$W Setting login with default banners ?\n"
+        printf "$M [2]$W Setting your own banners ?\n"
+        until read -n 1 -p " >> " banner && [ $banner -lt 3 ]; do
 		printf "$R O-ops!!$W \n"
-done
-        case $banner in
+	done
+	case $banner in
                 1)
                         echo "
                         "
-                        printf "$C                      Thanks to use my YouTube channel banner's$W"
-                        sleep 2
+                        printf "\n$C [IbyC]$M Thanks to use my YouTube channel banner's $C [IbyC]$W"
+                        sleep 4
                         Set_Ak
                         ;;
                 2)
+			printf "$C [IbyC]$M "
                         while read -p "Set login banner >> " LB && [ -z $LB ]; do
 				printf "$R O-ops!!$W \n"
 			done
@@ -227,10 +186,11 @@ done
 				cat $LB > $PREFIX/libexec/banner/login-banner
 			else
 				printf "$R O-ops!!$W |$R Don't such file"                                                                     sleep 2
-                                        Set_Banner
-				fi
+                        	Set_Banner
+			fi
 			echo "
 			"
+			printf "$C [IbyC]$M "
 			while read -p "Set a principal banner >> " PB && [ -z $PB ]; do
                                 printf "$R O-ops!!$W \n"
 			done
@@ -243,24 +203,40 @@ done
 				fi
                         ;;
         esac
+}
 #
+function Chao_chao {
+	echo $(clear)
+	printf "$M"
+	source $PWD/banner/thanks
+	sleep 1
+        printf "\n\t$G C O N G R A T U L A T I O N S !!!$W\n\n"
+	printf "$C [IbyC]$M Rmemeber, you can modify those banner later in$C [IbyC]$W\n\n"
+	printf "$Y [!]$W Login banner$G \n >>$W $PREFIX/libexec/banner/login-banner\n"
+        printf "$Y [!]$W Wallpaper banner$G \n >>$W $PREFIX/libexec/banner/wall-banner\n\n"
+        printf "$C[IbyC]$M If you type wrong your access key 3 times a help menu will appear$C [IbyC]$W\n\n"
+        printf "\t\t $G Press enter to restart Termux$W"
+        read enter
+        rm -rf $HOME/Termux_login;cd
+        echo$(bash)
+}
 #
 #			LET'S TO START
 #
 banner
-printf "$Y                      [IbyC]$C Upgrading packages && Installing files\n"
+printf "$Y[IbyC]$C Upgrading packages && Installing files\n"
 echo
 apt update && apt upgrade -y
 #Setting files
 cat $PREFIX/etc/bash.bashrc > $PREFIX/etc/bashito
-if [ -d $PREFIX/var/lib/postgresql ]; then
-	sed -i "3a pg_ctl -D $PREFIX/var/lib/postgresql" $PREFIX/etc/bash.bashrc
-	sed -i "4a clear" $PREFIX/etc/bash.bashrc
-	sed -i "5a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
-else
-	sed -i "3a clear" $PREFIX/etc/bash.bashrc
-	sed -i "4a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
-fi
+	if [ -d $PREFIX/var/lib/postgresql ]; then
+		sed -i "3a pg_ctl -D $PREFIX/var/lib/postgresql" $PREFIX/etc/bash.bashrc
+		sed -i "4a clear" $PREFIX/etc/bash.bashrc
+		sed -i "5a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
+	else
+		sed -i "3a clear" $PREFIX/etc/bash.bashrc
+		sed -i "4a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
+	fi
 #
 #Installing Scripts
 if [ -d $HOME/Termux_login ]; then
@@ -271,16 +247,21 @@ cp $PWD/login-termux $PREFIX/var/log/
 cp $PWD/colors $PREFIX/libexec/
 cp -r $PWD/termux $PREFIX/libexec/
 cp -r $PWD/banner $PREFIX/libexec/
+Tak=$(base64 -d $PREFIX/libexec/termux/.Ivam3)
+TQ=$(base64 -d $PREFIX/libexec/termux/.Quiz)
+TA=$(base64 -d $PREFIX/libexec/termux/.Cinderella)
 
 #
 #Bringing permissions
 chmod 711 $PREFIX/var/log/login-termux
 chmod 711 $PREFIX/libexec/colors
-chmod 511 -R $PREFIX/libexec/termux
-chmod 511 -R $PREFIX/libexec/banner
-printf "$Y                      [!]$G DONE!!"
+chmod 711 -R $PREFIX/libexec/termux
+chmod 711 -R $PREFIX/libexec/banner
+printf "\n $Y               [!]$G DONE!!"
 sleep 2
 echo
 Set_Banner
-#
-				#@IbyC
+
+
+
+#				IbyC
