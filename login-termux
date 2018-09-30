@@ -198,7 +198,7 @@ for opt in 1 2 3; do
 		break
         else
 		printf "$red Access denied 
-			      (op $try - 3) \n"
+			      (try $try - 3) \n"
 		sleep 1
 		echo
         fi

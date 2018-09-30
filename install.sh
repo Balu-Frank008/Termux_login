@@ -196,6 +196,7 @@ echo
 			done
 				if [ -e $PB ]; then
 					cat $PB > $PREFIX/libexec/banner/wall-banner
+					Set_Ak
 				else
 					printf "$R O-ops!!$W |$R Don't such file"
 					sleep 2
@@ -242,7 +243,7 @@ cat $PREFIX/etc/bash.bashrc > $PREFIX/etc/bashito
 if [ -d $HOME/Termux_login ]; then
 	rm -rf $HOME/Termux_login
 fi
-cd ~/;git clone https://github.com/ivam3/Termux_login.git;cd Termux_login
+cd $HOME;git clone https://github.com/ivam3/Termux_login.git;cd Termux_login
 cp $PWD/login-termux $PREFIX/var/log/
 cp $PWD/colors $PREFIX/libexec/
 cp -r $PWD/termux $PREFIX/libexec/
