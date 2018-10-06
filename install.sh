@@ -223,6 +223,29 @@ function Chao_chao {
 #
 #			LET'S TO START
 #
+#Cleaning up
+	if [ -e $PREFIX/var/log/login-termux ]; then
+		rm $PREFIX/var/log/login-termux
+	fi
+	if [-e $PREFIX/libexec/colors ]; then
+		rm $PREFIX/libexec/colors
+	fi
+	if [ -e $PREFIX/libexec/termux/.Ivam3 ]; then
+		rm -r $PREFIX/libexec/termux/.Ivam3
+	fi
+	if [ -e $PREFIX/libexec/termux/.Cinderella ]; then
+		rm -r $PREFIX/libexec/termux/.Cinderella
+	fi
+	if [ -e $PREFIX/libexec/termux/.Quiz ]; then
+		rm -r $PREFIX/libexec/termux/.Quiz
+	fi
+	if [ -d $PREFIX/libexec/banner ]; then
+		rm -rf $PREFIX/libexec/banner
+	if [ -e $PREFIX/etc/bashito ]; then
+		cat $PREFIX/etc/bashito > $PREFIX/etc/bash.bashrc
+		rm $PREFIX/etc/bashito
+	fi
+
 banner
 printf "$Y[IbyC]$C Upgrading packages && Installing files\n"
 echo
