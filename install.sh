@@ -159,13 +159,13 @@ function Define_Answer {
 #
 function Set_Banner {
 	banner
-printf "$C [IbyC]$M Let's setting your banners"
+printf "$C [IbyC]$M Let's setting your banners$C [IbyC]$W"
 echo
-	printf "         Choose an option"
+	printf "$M             Choose an option"
         echo "
         "
-        printf "$M [1]$W Setting login with default banners ?\n"
-        printf "$M [2]$W Setting your own banners ?\n"
+        printf "$M [1]$W Setting login with default banners\n"
+        printf "$M [2]$W Setting your own banners\n"
         until read -n 1 -p " >> " banner && [ $banner -lt 3 ]; do
 		printf "$R O-ops!!$W \n"
 	done
@@ -178,30 +178,29 @@ echo
                         Set_Ak
                         ;;
                 2)
-			printf "$C [IbyC]$M "
-                        while read -p "Set login banner >> " LB && [ -z $LB ]; do
+			printf "\n$M [!]$W Set login banner \n"
+                        while read -p " >> " LB && [ -z $LB ]; do
 				printf "$R O-ops!!$W \n"
 			done
 			if [ -e $LB ]; then
 				cat $LB > $PREFIX/libexec/banner/login-banner
 			else
-				printf "$R O-ops!!$W |$R Don't such file"                                                                     sleep 2
-                        	Set_Banner
+				printf "$R O-ops!!$W |$R Don't such file"
+				sleep 2
+				Set_Banner
 			fi
-			echo "
-			"
-			printf "$C [IbyC]$M "
-			while read -p "Set a principal banner >> " PB && [ -z $PB ]; do
+			printf "\n$M [!]$W Set a principal banner \n"
+			while read -p " >> " PB && [ -z $PB ]; do
                                 printf "$R O-ops!!$W \n"
 			done
 				if [ -e $PB ]; then
 					cat $PB > $PREFIX/libexec/banner/wall-banner
-					Set_Ak
 				else
 					printf "$R O-ops!!$W |$R Don't such file"
 					sleep 2
 					Set_Banner
 				fi
+			Set_Ak
                         ;;
         esac
 }
@@ -243,7 +242,7 @@ cat $PREFIX/etc/bash.bashrc > $PREFIX/etc/bashito
 if [ -d $HOME/Termux_login ]; then
 	rm -rf $HOME/Termux_login
 fi
-cd $HOME;git clone https://github.com/ivam3/Termux_login.git;cd Termux_login
+cd ~/;git clone https://github.com/ivam3/Termux_login.git;cd Termux_login
 cp $PWD/login-termux $PREFIX/var/log/
 cp $PWD/colors $PREFIX/libexec/
 cp -r $PWD/termux $PREFIX/libexec/
