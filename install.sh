@@ -110,7 +110,7 @@ printf "$M [!]$W Confirm your security question \n"
         }
 #
 function Define_Quiz {
-        if [ $Quiz1 = $Quiz2 ]; then
+ #       if [ $Quiz1 = $Quiz2 ]; then
                 Quiz=$Quiz1
                 printf "$Quiz" > $PREFIX/libexec/termux/tmp-Quiz
                 chmod +w $PREFIX/libexec/termux/.Quiz
@@ -118,12 +118,12 @@ function Define_Quiz {
                 chmod -w $PREFIX/libexec/termux/.Quiz
                 rm $PREFIX/libexec/termux/tmp-Quiz
 		Set_Answer
-        else
-		printf "\n$R [W] Your security questions are diferents$W |$G please try again$W
-                \n"
-                sleep 2
-                Set_Q
-        fi
+  #      else
+#		printf "\n$R [W] Your security questions are diferents$W |$G please try again$W
+ #               \n"
+  #              sleep 2
+   #             Set_Q
+    #    fi
 }
 #
 function Set_Answer {
@@ -141,7 +141,7 @@ printf "$M [!]$W Confirm your security answer \n"
         }
 #
 function Define_Answer {
-        if [ $Anw1 = $Anw2 ]; then
+#        if [ $Anw1 = $Anw2 ]; then
                 Anw=$Anw1
                 printf "$Anw" > $PREFIX/libexec/termux/tmp-Anw
                 chmod +w $PREFIX/libexec/termux/.Cinderella
@@ -149,16 +149,16 @@ function Define_Answer {
                 chmod -w $PREFIX/libexec/termux/.Cinderella
                 rm $PREFIX/libexec/termux/tmp-Anw
 		Chao_chao
-        else
-		printf "\n$R [W] Your security answers are diferents$W |$G please try again$W
-                \n"
-                sleep 2
-                Set_Answer
-        fi
+ #       else
+#		printf "\n$R [W] Your security answers are diferents$W |$G please try again$W
+ #               \n"
+  #              sleep 2
+   #             Set_Answer
+    #    fi
 }
 #
 function Set_Banner {
-	banner
+	#banner
 printf "$C [IbyC]$M Let's setting your banners$C [IbyC]$W"
 echo
 	printf "$M             Choose an option"
