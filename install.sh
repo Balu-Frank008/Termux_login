@@ -17,26 +17,19 @@ set -euo pipefail
                 trap ctrl_c 2
 #
 function ctrl_c() {
-        printf "        $R [W] Do you wanna exit ?$W \n"
-	printf "$Y [!]$W Type$R 'y'$W to restored all or type$G 'n'$W to continue\n"
-	while read -n 1 -p " >> " cxl && [ -z $cxl ]; do
-		printf "$R O-ops!!$W \n"
-	done
-		if [ $cxl = 'y' -o $cxl = 'Y' ] ; then
-                                rm $PREFIX/var/log/login-termux
-                                rm $PREFIX/libexec/colors
-                                rm -r $PREFIX/libexec/termux/.Ivam3
-				rm -r $PREFIX/libexec/termux/.Cinderella
-				rm -r $PREFIX/libexec/termux/.Quiz
-                                rm -rf $PREFIX/libexec/banner
-                                cat $PREFIX/etc/bashito > $PREFIX/etc/bash.bashrc
-                                rm $PREFIX/etc/bashito
-                                source $PWD/banner/thanks
-                                echo $(exit)
-                        fi
-                if [ $cxl = 'n' -o $cxl = 'N' ] ; then
-                                continue
-                        fi
+        printf "        $R [W] You will exit $W \n"
+	printf "$Y [!]$W Everything will be restored \n"
+	sleep 1
+	        rm $PREFIX/var/log/login-termux
+                rm $PREFIX/libexec/colors
+        	rm -r $PREFIX/libexec/termux/.Ivam3
+		rm -r $PREFIX/libexec/termux/.Cinderella
+		rm -r $PREFIX/libexec/termux/.Quiz
+                rm -rf $PREFIX/libexec/banner
+                cat $PREFIX/etc/bashito > $PREFIX/etc/bash.bashrc
+                rm $PREFIX/etc/bashito
+                source $PWD/banner/thanks
+                echo $(exit)
         }
 #
 function banner {
@@ -102,28 +95,33 @@ printf "\n$M [!]$W Type your security question \n"
 	while read -p " >> " Quiz1 && [ -z $Quiz1 ]; do
 		printf "$R O-ops!!$W \n"
 	done
+	printf "$Quiz1" > $PREFIX/libexec/termux/tmp-Quiz1
+	Quiz1=$(base64 $PREFIX/libexec/termux/tmp-Quiz1)
+	banner
 printf "$M [!]$W Confirm your security question \n"
 	while read -p " >> " Quiz2 && [ -z $Quiz2 ]; do
 		printf "$R O-ops!!$W \n"
 	done
+	printf "$Quiz2" > $PREFIX/libexec/termux/tmp-Quiz2
+        Quiz2=$(base64 $PREFIX/libexec/termux/tmp-Quiz2)
 	Define_Quiz
         }
 #
 function Define_Quiz {
- #       if [ $Quiz1 = $Quiz2 ]; then
-                Quiz=$Quiz1
-                printf "$Quiz" > $PREFIX/libexec/termux/tmp-Quiz
-                chmod +w $PREFIX/libexec/termux/.Quiz
-                base64 $PREFIX/libexec/termux/tmp-Quiz > $PREFIX/libexec/termux/.Quiz
+        if [ $Quiz1 = $Quiz2 ]; then
+		Quiz=$Quiz1
+		chmod +w $PREFIX/libexec/termux/.Quiz
+                printf "$Quiz" > $PREFIX/libexec/termux/.Quiz
                 chmod -w $PREFIX/libexec/termux/.Quiz
-                rm $PREFIX/libexec/termux/tmp-Quiz
+                rm $PREFIX/libexec/termux/tmp-Quiz1
+		rm $PREFIX/libexec/termux/tmp-Quiz2
 		Set_Answer
-  #      else
-#		printf "\n$R [W] Your security questions are diferents$W |$G please try again$W
- #               \n"
-  #              sleep 2
-   #             Set_Q
-    #    fi
+        else
+		printf "\n$R [W] Your security questions are diferents$W |$G please try again$W
+                \n"
+                sleep 2
+                Set_Q
+        fi
 }
 #
 function Set_Answer {
@@ -133,28 +131,33 @@ printf "\n$M [!]$W Type your security answer \n"
 	while read -p " >> " Anw1 && [ -z $Anw1 ]; do
 		printf "$R O-ops!!$W \n"
 	done
+	printf "$Anw1" > $PREFIX/libexec/termux/tmp-Anw1
+        Anw1=$(base64 $PREFIX/libexec/termux/tmp-Anw1)
+	banner
 printf "$M [!]$W Confirm your security answer \n"
 	while read -p " >> " Anw2 && [ -z $Anw2 ]; do
 		printf "$R O-ops!!$W \n"
 	done
+	printf "$Anw2" > $PREFIX/libexec/termux/tmp-Anw2
+        Anw2=$(base64 $PREFIX/libexec/termux/tmp-Anw2)
 	Define_Answer
         }
 #
 function Define_Answer {
-#        if [ $Anw1 = $Anw2 ]; then
-                Anw=$Anw1
-                printf "$Anw" > $PREFIX/libexec/termux/tmp-Anw
+        if [ $Anw1 = $Anw2 ]; then
+                Anw=$Anw1w
                 chmod +w $PREFIX/libexec/termux/.Cinderella
-                base64 $PREFIX/libexec/termux/tmp-Anw > $PREFIX/libexec/termux/.Cinderella
+                printf "$Anw" > $PREFIX/libexec/termux/.Cinderella
                 chmod -w $PREFIX/libexec/termux/.Cinderella
-                rm $PREFIX/libexec/termux/tmp-Anw
+                rm $PREFIX/libexec/termux/tmp-Anw1
+		rm $PREFIX/libexec/termux/tmp-Anw2
 		Chao_chao
- #       else
-#		printf "\n$R [W] Your security answers are diferents$W |$G please try again$W
- #               \n"
-  #              sleep 2
-   #             Set_Answer
-    #    fi
+        else
+		printf "\n$R [W] Your security answers are diferents$W |$G please try again$W
+                \n"
+                sleep 2
+                Set_Answer
+        fi
 }
 #
 function Set_Banner {
@@ -270,10 +273,6 @@ cp $PWD/login-termux $PREFIX/var/log/
 cp $PWD/colors $PREFIX/libexec/
 cp -r $PWD/termux $PREFIX/libexec/
 cp -r $PWD/banner $PREFIX/libexec/
-Tak=$(base64 -d $PREFIX/libexec/termux/.Ivam3)
-TQ=$(base64 -d $PREFIX/libexec/termux/.Quiz)
-TA=$(base64 -d $PREFIX/libexec/termux/.Cinderella)
-
 #
 #Bringing permissions
 chmod 711 $PREFIX/var/log/login-termux
