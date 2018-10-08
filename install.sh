@@ -145,7 +145,7 @@ printf "$M [!]$W Confirm your security answer \n"
 #
 function Define_Answer {
         if [ $Anw1 = $Anw2 ]; then
-                Anw=$Anw1w
+                Anw=$Anw1
                 chmod +w $PREFIX/libexec/termux/.Cinderella
                 printf "$Anw" > $PREFIX/libexec/termux/.Cinderella
                 chmod -w $PREFIX/libexec/termux/.Cinderella
@@ -213,15 +213,13 @@ function Chao_chao {
 	printf "$M"
 	source $PWD/banner/thanks
 	sleep 1
-        printf "\n\t$G C O N G R A T U L A T I O N S !!!$W\n\n"
-	printf "$C [IbyC]$M Rmemeber, you can modify those banner later in$C [IbyC]$W\n\n"
+        printf "\n$G     C O N G R A T U L A T I O N S !!!$W\n\n"
+	printf "$C [IbyC]$M Remeber, you can modify those banner later in$C [IbyC]$W\n\n"
 	printf "$Y [!]$W Login banner$G \n >>$W $PREFIX/libexec/banner/login-banner\n"
         printf "$Y [!]$W Wallpaper banner$G \n >>$W $PREFIX/libexec/banner/wall-banner\n\n"
-        printf "$C[IbyC]$M If you type wrong your access key 3 times a help menu will appear$C [IbyC]$W\n\n"
-        printf "\t\t $G Press enter to restart Termux$W"
-        read enter
+        printf "$R[W]$Y If you type wrong your access key 3 times a help menu will appear$W\n\n"
         rm -rf $HOME/Termux_login;cd
-        echo$(bash)
+        echo$(exit)
 }
 #
 #			LET'S TO START
@@ -230,7 +228,7 @@ function Chao_chao {
 	if [ -e $PREFIX/var/log/login-termux ]; then
 		rm $PREFIX/var/log/login-termux
 	fi
-	if [-e $PREFIX/libexec/colors ]; then
+	if [ -e $PREFIX/libexec/colors ]; then
 		rm $PREFIX/libexec/colors
 	fi
 	if [ -e $PREFIX/libexec/termux/.Ivam3 ]; then
@@ -244,6 +242,7 @@ function Chao_chao {
 	fi
 	if [ -d $PREFIX/libexec/banner ]; then
 		rm -rf $PREFIX/libexec/banner
+	fi
 	if [ -e $PREFIX/etc/bashito ]; then
 		cat $PREFIX/etc/bashito > $PREFIX/etc/bash.bashrc
 		rm $PREFIX/etc/bashito
@@ -255,14 +254,8 @@ echo
 apt update && apt upgrade -y
 #Setting files
 cat $PREFIX/etc/bash.bashrc > $PREFIX/etc/bashito
-	if [ -d $PREFIX/var/lib/postgresql ]; then
-		sed -i "3a pg_ctl -D $PREFIX/var/lib/postgresql" $PREFIX/etc/bash.bashrc
-		sed -i "4a clear" $PREFIX/etc/bash.bashrc
-		sed -i "5a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
-	else
-		sed -i "3a clear" $PREFIX/etc/bash.bashrc
-		sed -i "4a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
-	fi
+sed -i "3a clear" $PREFIX/etc/bash.bashrc
+sed -i "4a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
 #
 #Installing Scripts
 if [ -d $HOME/Termux_login ]; then
