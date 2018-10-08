@@ -51,7 +51,7 @@ function case_Chak {
 				printf "$reset"
 				echo $(clear)
 				source $PREFIX/libexec/banner/thanks
-			while read -s -p "New access key (max 4 dig) >>  " Newak1 && [ -z $Newak1 ]; do
+			while read -s -p "New access key >>  " Newak1 && [ -z $Newak1 ]; do
                                 printf "$red O-ops!!$reset \n"
                         done
                 		printf "$reset"
@@ -94,7 +94,7 @@ function case_Chak {
 				printf "$reset"
 				echo "
 				"
-				while read -p "Write your New security question (Max 8 words) >>  " NewQ && [ -z $NewQ ]; do
+				while read -p "Write your New security question >>  " NewQ && [ -z $NewQ ]; do
 					printf "$red O-ops!!$reset"
 				done
 				echo $(clear)
