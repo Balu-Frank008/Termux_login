@@ -1,24 +1,24 @@
-#!/data/data/com.termux/files/usr/bin/
+#!/data/data/com.termux/files/usr/bin/bash
 #Coded by Ivam3 on jun 27 2018
 #
 source $PREFIX/libexec/colors
 
 #BANNER
 	echo -e "$blue
-			-{ Ivam3  by  Cinderella } 
+		       -{ Ivam3  by  Cinderella }
 
-			      -{ Termux }
+			    { Support Team }
 $cyan
 			       BANNER#by#
 			   #####Edqueru######
 			Ariel_conmed#Adims#Shanks
 		      SrMuerto SO-android #Narva3z
 		    LawLiet SalvadorContreras Gospit
-		   THANKS##TO##MY##MASTER##CINDERELLA
-		  Group HACKEANDO desde ANDROID Family
-		   Apk   ##Community##of#The##   IbyC
-		    Net      #Next#Hackers      Lim
-		     #>:      METASPLOIT#       :<#
+		   THANKS##TO##MY##MASTER##CINDERELLA$blue
+		  OFFICIAL ANDRAX LATINAMERICA SUPPORT$cyan
+		   #>:    #Community##of#The##    :<#
+		    #>:      >Next#Hackers<      :<#
+		     #>:      HayateGenkko      :<#
 		      ###People#do ## ##not####die
 		       \##If#they# ## still#live/
 		        #In#####the#hearts#of###
@@ -36,5 +36,6 @@ $blue
 			[---] Goin me on [---]
 
 	       [-] www.youtube.com/c/ivam3bycinderella [-]
+	              [-] t.me/andraxspanish [-]
 			  [-] t.me/ivam3 [-]
 				 \n "
