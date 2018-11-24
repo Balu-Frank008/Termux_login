@@ -39,7 +39,7 @@ function change_ak {
 function case_Chak {
 	case $Chak in
 		1)
-			printf "$reset"
+			printf "$green"
 			echo
 			while read -s -p "Security question :
 			$Seque
