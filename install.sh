@@ -18,16 +18,34 @@ set -euo pipefail
 #
 function ctrl_c() {
         printf "        $R [W] You will exit $W \n"
-	printf "$Y [!]$W Everything will be restored \n"
+	printf "$Y [!]$W Everything will be restored \n\n"
 	sleep 1
-	        rm $PREFIX/var/log/login-termux
-                rm $PREFIX/libexec/colors
-        	rm -r $PREFIX/libexec/termux/.Ivam3
-		rm -r $PREFIX/libexec/termux/.Cinderella
-		rm -r $PREFIX/libexec/termux/.Quiz
-                rm -rf $PREFIX/libexec/banner
-                cat $PREFIX/etc/bashito > $PREFIX/etc/bash.bashrc
-                rm $PREFIX/etc/bashito
+		if [ -e $PREFIX/var/log/login-termux ]; then
+			rm $PREFIX/var/log/login-termux
+		fi
+		if [ -e $PREFIX/libexec/colors ]; then
+			rm $PREFIX/libexec/colors
+		fi
+		if [ -e $PREFIX/libexec/termux/.Ivam3 ]; then
+        		rm -r $PREFIX/libexec/termux/.Ivam3
+		fi
+		if [ -e $PREFIX/libexec/termux/.Cinderella ]; then
+			rm -r $PREFIX/libexec/termux/.Cinderella
+		fi
+		if [ -e $PREFIX/libexec/termux/.Quiz ]; then
+			rm -r $PREFIX/libexec/termux/.Quiz
+		fi
+		if [ -d $PREFIX/libexec/banner ]; then
+			rm -rf $PREFIX/libexec/banner
+		fi
+		if [ -e $PREFIX/etc/bashito ]; then
+			cat $PREFIX/etc/bashito > $PREFIX/etc/bash.bashrc
+                	rm $PREFIX/etc/bashito
+		fi
+		if [ -e $PREFIX/etc/motd2 ]; then
+			mv $PREFIX/etc/motd2 $PREFIX/etc/motd
+		fi
+		echo $(clear)
                 source $PWD/banner/thanks
                 echo $(exit)
         }
@@ -247,13 +265,17 @@ function Chao_chao {
 		cat $PREFIX/etc/bashito > $PREFIX/etc/bash.bashrc
 		rm $PREFIX/etc/bashito
 	fi
+	if [ -e $PREFIX/etc/motd2 ]; then
+		mv $PREFIX/etc/motd2 $PREFIX/etc/motd
+	fi
 
 banner
 printf "$Y[IbyC]$C Upgrading packages && Installing files\n"
 echo
-apt update && apt upgrade -y
+apt update && apt upgrade -y; apt install cmatrix
 #Setting files
 cat $PREFIX/etc/bash.bashrc > $PREFIX/etc/bashito
+mv $PREFIX/etc/motd $PREFIX/etc/motd2
 sed -i "3a clear" $PREFIX/etc/bash.bashrc
 sed -i "4a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
 #
