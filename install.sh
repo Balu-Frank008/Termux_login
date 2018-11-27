@@ -275,7 +275,9 @@ echo
 apt update && apt upgrade -y; apt install cmatrix
 #Setting files
 cat $PREFIX/etc/bash.bashrc > $PREFIX/etc/bashito
-mv $PREFIX/etc/motd $PREFIX/etc/motd2
+if [ -e $PREFIX/etc/motd ]; then
+	mv $PREFIX/etc/motd $PREFIX/etc/motd2
+fi
 sed -i "3a clear" $PREFIX/etc/bash.bashrc
 sed -i "4a source $PREFIX/var/log/login-termux" $PREFIX/etc/bash.bashrc
 #
